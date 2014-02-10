@@ -8,24 +8,6 @@
 				<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>
 			</div>
 			<!-- end 导航下拉 消息 -->
-			
-			<script type="text/javascript">
-				$(document).ready(function () {
-					if (G_USER_ID)
-					{
-						$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
-							if (data)
-							{
-								$('#notifications_list').html(data);
-							}
-							else
-							{
-								$('#notifications_list').html('<li><p align="center">暂无新通知</p></li>');
-							}
-						});
-					}					
-				});
-			</script>
 
 			<!-- 导航下拉 我 -->
 			<div class="aw-top-nav-popup aw-top-nav-profile hide">
@@ -34,7 +16,7 @@
 						<a href="m/people/"><?php _e('我的主页'); ?></a>
 					</li>
 					<li>
-						<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['notice_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['notice_unread']; ?></span><?php } ?></a>
+						<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['inbox_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?></a>
 					</li>
 					<li>
 						<a href="m/settings/"><?php _e('设置'); ?></a>
@@ -65,24 +47,40 @@
 		<!-- / DO NOT REMOVE -->
 		
 		<script type="text/javascript">
-			$(document).ready(function () {
-				if (typeof WeixinJSBridge != 'undefined')
+		$(function()
+		{
+			// 判断是否微信打开
+			if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
+		    {
+		    	$('header, nav, footer').hide();
+		        // if ($.cookie('wechat-tips-close') != 'true')
+		        // {
+		        // 	$('.aw-global-tips').show();
+		        // }
+		        var weixin_handler = setInterval(function()
 				{
-					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-						WeixinJSBridge.invoke('sendAppMessage', {
-							"title" : document.title,
-							"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+					if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
+					{
+						WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+							WeixinJSBridge.invoke('sendAppMessage', {
+								"title" : document.title,
+								"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect',
+								"description" : document.description
+					        });
 				        });
-			        });
-					
-			    	WeixinJSBridge.on('menu:share:timeline', function(argv) {
-						WeixinJSBridge.invoke('shareTimeline', {
-							"title" : document.title,
-							"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+						
+				    	WeixinJSBridge.on('menu:share:timeline', function(argv) {
+							WeixinJSBridge.invoke('shareTimeline', {
+								"title" : document.title,
+								"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect',
+								"description" : document.description
+							});
 						});
-					});
-				}
-			});
+						clearInterval(weixin_handler);
+					}
+				}, 500);
+		    }
+		});
 		</script>
 	</body>
 </html>
