@@ -386,6 +386,9 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-box .aw-vote-bar, .aw-question-detail-box .aw-vote-count{position: absolute;left: -30px;}
 .aw-question-detail-box .aw-vote-bar.fixed .vote-container{position: fixed;top: 25px;}
 .aw-question-detail-box .aw-dynamic-topic .aw-vote-count.disabled{position:absolute;left:-30px;background: #F2F2F2;}
+.aw-dynamic-topic-content div .content-wrap{overflow: hidden;}
+.aw-dynamic-topic-content div .content-wrap .content .hide-content{max-height: 450px;overflow: hidden;}
+.aw-dynamic-topic-content div .content-wrap .markitup-box img{max-width: 100%; !important;}
 
 /* 文章广场 */
 .aw-article-square{padding-top: 20px;}
