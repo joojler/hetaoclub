@@ -21,7 +21,9 @@
 								<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
 								<ul class="aw-dropdown-list"></ul>
 								<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
-								<p><a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a></p>
+								<?php if (get_setting('quick_publish') == 'Y' && $this->user_id && $this->user_info['permission']['publish_question'] ) { ?>
+									<p><a href="publish" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a></p>
+								<?php } ?>
 							</div>
 						</div>
 					</form>
@@ -53,7 +55,7 @@
 				</div>
 				<!-- end 导航 -->
 				<!-- 发起 -->
-				<?php if ($this->user_id) { ?>
+				<?php if ($this->user_id AND $this->user_info['permission']['publish_question']) { ?>
 				<div class="col-xs-1 col-sm-1 aw-publish-btn hidden-xs">
 					<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="$.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="fa fa-edit"></i><?php _e('发起'); ?></a>
 				</div>
