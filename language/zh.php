@@ -1328,7 +1328,7 @@ $language['取消推荐'] = '取消推荐';
 $language['问题重定向'] = '活动重定向';
 $language['查看单个回答'] = '查看单个回答';
 $language['%s 个回复被折叠'] = '%s 个回复被折叠';
-$language['查看全部回答'] = '查看全部回答';
+$language['查看全部回答'] = '查看全部回复';
 $language['下一页'] = '下一页';
 $language['要回复问题请先<a href="account/login/">登录</a>或<a href="account/register/">注册</a>'] = '要回复活动请先<a href="account/login/">登录</a>或<a href="account/register/">注册</a>';
 $language['该问题目前已经被锁定, 无法添加新回复'] = '该活动目前已经被锁定, 无法添加新回复';
