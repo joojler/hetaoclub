@@ -1451,3 +1451,4 @@ $language['话题分类'] = '分类';
 $language['你当前的话题较少, 推荐去<a href="topic/square/hot">热门话题</a>看看'] = '你当前的分类较少, 推荐去<a href="topic/square/hot">热门分类</a>看看';
 $language['进入话题'] = '进入分类';
 $language['新增话题'] = '新增分类';
+$language['回答了问题'] = '参加了活动';
