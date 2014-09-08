@@ -36,9 +36,9 @@
 						<li><a href="<?php echo get_setting('base_url'); ?>"<?php if (!$_GET['app'] OR ($_GET['app'] == 'home' AND $_GET['act'] != 'explore')) { ?> class="active"<?php } ?>><?php _e('首页'); ?></a></li>
 						<?php } ?>
 						
-						<li><a href="home/explore/" class="<?php if ($_GET['app'] == 'question' OR $_GET['act'] == 'explore') { ?>active<?php } ?>"><?php _e('问题'); ?></a></li>
+						<li><a href="home/explore/" class="<?php if (($_GET['app'] == 'question' OR $_GET['act'] == 'explore') AND !$_GET['is_offline']) { ?>active<?php } ?>"><?php _e('问题'); ?></a></li>
 
-						<li><a href="article/square/" class="<?php if ($_GET['app'] == 'article') { ?>active<?php } ?>"><?php _e('文章'); ?></a></li>
+						<li><a href="home/explore/?is_offline=1" class="<?php if ($_GET['is_offline'] == 1) { ?>active<?php } ?>"><?php _e('文章'); ?></a></li>
 						
 						<li><a href="topic/" <?php if ($_GET['app'] == 'topic') { ?>class="active"<?php } ?>><?php _e('话题'); ?></a></li>
 						
