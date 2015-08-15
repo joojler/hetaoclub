@@ -208,7 +208,8 @@ class main extends AWS_CONTROLLER
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 				'base_url' => get_js_url('/home/explore/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . $_GET['is_recommend']) . '__feature_id-' . $feature_info['id'], 
 				'total_rows' => $this->model('question')->get_questions_list_total(),
-				'per_page' => get_setting('contents_per_page')
+				'per_page' => get_setting('contents_per_page'),
+				'is_offline' => $_GET[is_offline]
 			))->create_links());
 			
 			TPL::assign('question_list', $question_list);

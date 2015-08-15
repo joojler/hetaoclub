@@ -44,6 +44,7 @@ class core_pagination
 	var $num_tag_close		= '';
 	var $query_string_segment = 'page';
 	var $display_pages		= TRUE;
+	var $is_offline			= '';
 	
 	var $page_base_url = '';
 	
@@ -185,8 +186,11 @@ class core_pagination
 		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
 		{
 			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
-			
-			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+		
+			if ($this->is_offline)
+				$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'?is_ofline=1">'.$this->first_link.'</a>'.$this->first_tag_close;
+			else 
+				$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "previous" link
@@ -196,13 +200,19 @@ class core_pagination
 
 			if ($i == 1)
 			{
-				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+				if ($this->is_offline)
+					$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'?is_offline=1">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+				else 
+					$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 			else
 			{
 				$i = ($i == 0) ? '' : $this->prefix.$i.$this->suffix;
-				
-				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$i.'">'.$this->prev_link . '</a>'.$this->prev_tag_close;
+			
+				if ($this->is_offline)	
+					$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$i.'?is_offline=1">'.$this->prev_link . '</a>'.$this->prev_tag_close;
+				else
+					$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$i.'">'.$this->prev_link . '</a>'.$this->prev_tag_close;
 			}
 
 		}
@@ -229,13 +239,19 @@ class core_pagination
 
 						if ($n == 1)
 						{
-							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'">'.$loop.'</a>'.$this->num_tag_close;
+							if ($this->is_offline)
+								$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'?is_offline=1">'.$loop.'</a>'.$this->num_tag_close;
+							else
+								$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'">'.$loop.'</a>'.$this->num_tag_close;
 						}
 						else
 						{
 							$n = ($n == '') ? '' : $this->prefix.$n.$this->suffix;
 
-							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
+							if ($this->is_offline)
+								$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$n.'?is_offline=1">'.$loop.'</a>'.$this->num_tag_close;
+							else
+								$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
 						}
 					}
 				}
@@ -245,7 +261,10 @@ class core_pagination
 		// Render the "next" link
 		if ($this->next_link !== FALSE AND $this->cur_page < $num_pages)
 		{
-			$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.($this->cur_page + 1).$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
+			if ($this->is_offline)
+				$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.($this->cur_page + 1).$this->suffix.'?is_offline=1">'.$this->next_link.'</a>'.$this->next_tag_close;
+			else 
+				$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.($this->cur_page + 1).$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
 		// Render the "Last" link
@@ -253,7 +272,10 @@ class core_pagination
 		{
 			//$i = (($num_pages * $this->per_page) - $this->per_page);
 			$i = $num_pages;
-			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
+			if ($this->is_offline)
+				$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.$i.$this->suffix.'?is_offline=1">'.$this->last_link.'</a>'.$this->last_tag_close;
+			else
+				$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 		
 		// Kill double slashes.  Note: Sometimes we can end up with a double slash
