@@ -264,7 +264,7 @@
 								<!-- end 用户头像 -->
 								<div class="aw-mod-body clearfix">
 									<!-- 投票栏 -->
-									<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $val['uid'] == $this->user_id) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $val['uid'] != $this->user_id) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['agree_count']; ?>,flag:<?php echo $val['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_id']; ?>})"<?php } ?>><?php echo $val['agree_count']; ?></em>
+									<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id) { ?> disabled<?php } ?>"<?php if ($this->user_id) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['agree_count']; ?>,flag:<?php echo $val['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_id']; ?>})"<?php } ?>><?php echo $val['agree_count']; ?></em>
 									<!-- end 投票栏 -->
 									<div class="pull-left aw-dynamic-topic-content">
 										<!-- 评论内容 -->
