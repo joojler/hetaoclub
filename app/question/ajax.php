@@ -345,7 +345,7 @@ class ajax extends AWS_CONTROLLER
 		}
 		else
 		{
-			$question_list = $this->model('question')->get_questions_list($_GET['page'], $per_page, $_GET['sort_type'], $_GET['topic_id'], $_GET['category'], $_GET['answer_count'], $_GET['day']);
+			$question_list = $this->model('question')->get_questions_list($_GET['page'], $per_page, $_GET['sort_type'], $_GET['topic_id'], $_GET['category'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend'], $_GET['is_offline']);
 		}
 		
 		if ($_GET['template'] != 'm' AND $question_list)
